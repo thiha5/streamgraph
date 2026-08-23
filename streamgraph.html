@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Stream Graph</title>
 
   <!-- d3 -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
-  <!-- Tableau Extensions API library (bundled locally) -->
-  <script src="./lib/tableau.extensions.1.latest.min.js"></script>
+  <!-- Extensions Library -->
+  <script src="./lib/tableau.extensions.1.latest.js"></script>
 
-  <link rel="stylesheet" href="./streamgraph.css" />
+  <link rel="stylesheet" href="./style.css">
 
   <!-- Our extension's code -->
   <script src="./streamgraph.js"></script>
 </head>
 <body class="tableau-worksheet">
   <div id="content"></div>
-  <div id="empty-state" class="hidden">
-    Drop a <b>Date</b>, <b>Category</b> and <b>Measure</b> field onto the Marks card to draw the stream graph.
+  <div id="empty-state">
+    <div class="empty-state-inner">
+      <h3>Build your stream graph</h3>
+      <p>Drop a date field on <strong>Date</strong>, a dimension on <strong>Category</strong> and a measure on <strong>Measure</strong> to get started.</p>
+      <p class="empty-state-optional">Color, Detail and Tooltip are optional.</p>
+    </div>
   </div>
 </body>
 </html>
