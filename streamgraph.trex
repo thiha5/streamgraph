@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <worksheet-extension id="co.thibi.extensions.streamgraph" extension-version="1.0.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>Stream Graph</description>
+    <author name="Thibi" email="thiha@thibi.co" organization="Thibi" website="https://thibi.co"/>
+    <min-api-version>1.12</min-api-version>
+    <source-location>
+      <url>http://localhost:4444/streamgraph.html</url>
+    </source-location>
+    <icon/>
+
+    <context-menu>
+      <configure-context-menu-item/>
+    </context-menu>
+
+    <!-- Custom encoding shelves shown on the Marks card, in addition to the
+         built-in Detail and Tooltip shelves that every Viz Extension gets
+         automatically. -->
+
+    <encoding id="date">
+      <display-name resource-id="encoding-date">Date</display-name>
+      <data-spec>
+        <data-type>temporal</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>discrete-dimension</role-type>
+        <role-type>continuous-dimension</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="letter-d"/>
+      <tooltip resource-id="tooltip-date">The time axis of the stream graph. Use a discrete or continuous date field.</tooltip>
+    </encoding>
+
+    <encoding id="category">
+      <display-name resource-id="encoding-category">Category</display-name>
+      <role-spec>
+        <role-type>discrete-dimension</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="shape"/>
+      <tooltip resource-id="tooltip-category">One stream band is drawn per value of this dimension.</tooltip>
+    </encoding>
+
+    <encoding id="measure">
+      <display-name resource-id="encoding-measure">Measure</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>continuous-measure</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="letter-m"/>
+      <tooltip resource-id="tooltip-measure">Controls the thickness of each band at each date.</tooltip>
+    </encoding>
+
+    <encoding id="color">
+      <display-name resource-id="encoding-color">Color</display-name>
+      <role-spec>
+        <role-type>discrete-dimension</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="color"/>
+      <tooltip resource-id="tooltip-color">Optional. Colors bands by this field. Defaults to Category if left empty.</tooltip>
+    </encoding>
+  </worksheet-extension>
+  <resources>
+    <resource id="name">
+      <text locale="en_US">Stream Graph</text>
+    </resource>
+    <resource id="encoding-date">
+      <text locale="en_US">Date</text>
+    </resource>
+    <resource id="encoding-category">
+      <text locale="en_US">Category</text>
+    </resource>
+    <resource id="encoding-measure">
+      <text locale="en_US">Measure</text>
+    </resource>
+    <resource id="encoding-color">
+      <text locale="en_US">Color</text>
+    </resource>
+    <resource id="tooltip-date">
+      <text locale="en_US">The time axis of the stream graph. Use a discrete or continuous date field.</text>
+    </resource>
+    <resource id="tooltip-category">
+      <text locale="en_US">One stream band is drawn per value of this dimension.</text>
+    </resource>
+    <resource id="tooltip-measure">
+      <text locale="en_US">Controls the thickness of each band at each date.</text>
+    </resource>
+    <resource id="tooltip-color">
+      <text locale="en_US">Optional. Colors bands by this field. Defaults to Category if left empty.</text>
+    </resource>
+  </resources>
+</manifest>
