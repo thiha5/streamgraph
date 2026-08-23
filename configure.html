@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Stream Graph Settings</title>
+  <script src="./lib/tableau.extensions.1.latest.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      font-family: -apple-system, "Segoe UI", Tahoma, sans-serif;
+      color: #333;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .scroll-area {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    h2 {
+      font-size: 15px;
+      margin: 0 0 16px 0;
+    }
+    h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #888;
+      margin: 24px 0 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #555;
+    }
+    select {
+      width: 100%;
+      padding: 6px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+    input[type="color"] {
+      width: 44px;
+      height: 26px;
+      padding: 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      flex: 0 0 auto;
+    }
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .swatch-hint {
+      font-size: 11px;
+      color: #888;
+    }
+    .position-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .position-grid label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-weight: 400;
+      font-size: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 6px 4px;
+      cursor: pointer;
+      margin: 0;
+    }
+    .position-grid input {
+      margin: 0;
+    }
+    .position-grid label.selected {
+      border-color: #1c6ea4;
+      background: #eaf3f9;
+      color: #1c6ea4;
+    }
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .category-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .category-name {
+      flex: 1 1 auto;
+      font-size: 12px;
+      color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .reset-link {
+      font-size: 11px;
+      color: #1c6ea4;
+      cursor: pointer;
+      text-decoration: underline;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .no-categories {
+      font-size: 12px;
+      color: #999;
+      font-style: italic;
+    }
+    .buttons {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 14px 20px;
+      border-top: 1px solid #eee;
+      background: #fff;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 13px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+    }
+    button.primary {
+      background: #1c6ea4;
+      border-color: #1c6ea4;
+      color: #fff;
+    }
+    #accent-row {
+      display: none;
+    }
+    #accent-row.visible {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-area">
+    <h2>Stream graph settings</h2>
+
+    <div class="field">
+      <label for="curve">Curve style</label>
+      <select id="curve">
+        <option value="basis">Smooth (Basis)</option>
+        <option value="natural">Natural</option>
+        <option value="cardinal">Cardinal</option>
+        <option value="catmullRom">Catmull-Rom</option>
+        <option value="monotone">Monotone</option>
+        <option value="step">Step</option>
+        <option value="linear">Straight lines</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Legend position</label>
+      <div class="position-grid" id="legend-position-grid">
+        <label data-value="top"><input type="radio" name="legendPosition" value="top">Top</label>
+        <label data-value="right"><input type="radio" name="legendPosition" value="right">Right</label>
+        <label data-value="bottom"><input type="radio" name="legendPosition" value="bottom">Bottom</label>
+        <label data-value="left"><input type="radio" name="legendPosition" value="left">Left</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="background">Background color</label>
+      <div class="color-row">
+        <input type="color" id="background">
+        <span class="swatch-hint">Fills the extension pane behind the stream</span>
+      </div>
+    </div>
+
+    <h3>
+      Chart color
+    </h3>
+
+    <div class="field">
+      <label for="palette">Default palette</label>
+      <select id="palette">
+        <option value="categorical">Tableau classic</option>
+        <option value="vibrant">Vibrant</option>
+        <option value="pastel">Pastel</option>
+        <option value="mono">Single color (shades of accent)</option>
+      </select>
+    </div>
+
+    <div class="field color-row" id="accent-row">
+      <input type="color" id="accent">
+      <span class="swatch-hint">Accent color used to shade every band</span>
+    </div>
+
+    <h3>
+      <span>Band colors</span>
+      <span class="reset-link" id="reset-colors">Reset to palette</span>
+    </h3>
+    <div class="field">
+      <div class="category-list" id="category-list">
+        <div class="no-categories">Add a Date, Category and Measure field to the Marks card to see your categories here.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button id="cancel">Cancel</button>
+    <button id="apply" class="primary">Apply</button>
+  </div>
+
+  <script src="./configure.js"></script>
+</body>
+</html>
